@@ -88,16 +88,13 @@
         </DelphiCompile>
         <DCCReference Include="uPrincipal.pas">
             <Form>fmPrincipal</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="uTabelas.pas">
             <Form>dmTabelas</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="uCadastroProduto.pas">
             <Form>FMCadProduto</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>

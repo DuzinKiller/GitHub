@@ -27,10 +27,9 @@ object dmTabelas: TdmTabelas
   object dsProduto: TDataSource
     DataSet = FDTableProduto
     Left = 272
-    Top = 72
+    Top = 64
   end
   object FDTableProduto: TFDTable
-    Active = True
     IndexFieldNames = 'id'
     Connection = FDConnection1
     UpdateOptions.UpdateTableName = 'PRODUTO'

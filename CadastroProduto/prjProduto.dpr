@@ -2,6 +2,7 @@ program prjProduto;
 
 uses
   Vcl.Forms,
+  MidasLib,
   uPrincipal in 'uPrincipal.pas' {fmPrincipal},
   uTabelas in 'uTabelas.pas' {dmTabelas: TDataModule},
   uCadastroProduto in 'uCadastroProduto.pas' {FMCadProduto},

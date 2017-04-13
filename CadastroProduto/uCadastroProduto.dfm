@@ -5,7 +5,7 @@ object FMCadProduto: TFMCadProduto
   BorderStyle = bsSingle
   Caption = 'Cadastro de Produto'
   ClientHeight = 309
-  ClientWidth = 500
+  ClientWidth = 524
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,47 +22,54 @@ object FMCadProduto: TFMCadProduto
     AlignWithMargins = True
     Left = 3
     Top = 0
-    Width = 494
-    Height = 27
+    Width = 518
+    Height = 38
     Margins.Top = 0
     Margins.Bottom = 0
-    ButtonHeight = 21
-    ButtonWidth = 58
+    ButtonHeight = 19
+    ButtonWidth = 63
     Caption = 'ToolBar1'
+    List = True
     ShowCaptions = True
     TabOrder = 0
+    ExplicitWidth = 515
     object tbNovo: TToolButton
       Left = 0
       Top = 0
       Action = acNovo
     end
     object tbAlterar: TToolButton
-      Left = 58
+      Left = 63
       Top = 0
       Action = acAlterar
     end
+    object ToolButton1: TToolButton
+      Left = 126
+      Top = 0
+      Action = acExcluir
+    end
     object tbGrava: TToolButton
-      Left = 116
+      Left = 189
       Top = 0
       Action = acGravar
     end
     object tbAnterior: TToolButton
-      Left = 174
+      Left = 252
       Top = 0
       Action = acAlterior
     end
     object tbProximo: TToolButton
-      Left = 232
+      Left = 315
       Top = 0
       Action = acProximo
     end
     object tbUltimo: TToolButton
-      Left = 290
+      Left = 378
       Top = 0
       Action = acUltimo
     end
     object tbCancelar: TToolButton
-      Left = 348
+      Left = 441
       Top = 0
       Action = acCancelar
     end
@@ -70,12 +77,18 @@ object FMCadProduto: TFMCadProduto
   object Panel1: TPanel
     AlignWithMargins = True
     Left = 3
-    Top = 30
-    Width = 494
-    Height = 276
+    Top = 41
+    Width = 518
+    Height = 265
     Align = alClient
     BevelInner = bvLowered
     TabOrder = 1
+    ExplicitTop = 30
+    ExplicitWidth = 494
+    ExplicitHeight = 276
+    DesignSize = (
+      518
+      265)
     object Label1: TLabel
       Left = 7
       Top = 16
@@ -114,20 +127,24 @@ object FMCadProduto: TFMCadProduto
     object DBEdit1: TDBEdit
       Left = 93
       Top = 13
-      Width = 364
+      Width = 409
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       DataField = 'nome'
       DataSource = dmTabelas.dsProduto
       TabOrder = 0
+      ExplicitWidth = 396
     end
     object DBEdit2: TDBEdit
       Left = 93
       Top = 45
-      Width = 364
+      Width = 409
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       DataField = 'marca'
       DataSource = dmTabelas.dsProduto
       TabOrder = 1
+      ExplicitWidth = 396
     end
     object DBEdit3: TDBEdit
       Left = 93
@@ -141,20 +158,24 @@ object FMCadProduto: TFMCadProduto
     object DBEdit4: TDBEdit
       Left = 336
       Top = 77
-      Width = 121
+      Width = 166
       Height = 21
+      Anchors = [akLeft, akTop, akRight]
       DataField = 'unidade'
       DataSource = dmTabelas.dsProduto
       TabOrder = 3
+      ExplicitWidth = 153
     end
     object DBMemo1: TDBMemo
       Left = 93
       Top = 117
-      Width = 364
+      Width = 409
       Height = 132
+      Anchors = [akLeft, akTop, akRight]
       DataField = 'observacao'
       DataSource = dmTabelas.dsProduto
       TabOrder = 4
+      ExplicitWidth = 396
     end
   end
   object ActionManager1: TActionManager
@@ -163,7 +184,7 @@ object FMCadProduto: TFMCadProduto
       end>
     Left = 432
     Top = 128
-    StyleName = 'Platform Default'
+    StyleName = 'Standard'
     object acNovo: TAction
       Category = 'dados'
       Caption = 'Novo'
@@ -173,10 +194,6 @@ object FMCadProduto: TFMCadProduto
       Category = 'dados'
       Caption = 'Alterar'
       OnExecute = acAlterarExecute
-    end
-    object acPesquisar: TAction
-      Category = 'dados'
-      Caption = 'Pesquisar'
     end
     object acProximo: TAction
       Category = 'dados'
@@ -203,10 +220,20 @@ object FMCadProduto: TFMCadProduto
       Caption = 'Cancelar'
       OnExecute = acCancelarExecute
     end
+    object acExcluir: TAction
+      Category = 'dados'
+      Caption = 'Excluir'
+      OnExecute = acExcluirExecute
+    end
   end
   object dsTela: TDataSource
     OnStateChange = dsTelaStateChange
-    Left = 536
-    Top = 56
+    OnDataChange = dsTelaDataChange
+    Left = 48
+    Top = 216
+  end
+  object ImageList1: TImageList
+    Left = 315
+    Top = 193
   end
 end

@@ -12,14 +12,13 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.MSSQL, FireDAC.VCLUI.Wait, FireDAC.Stan.Param, FireDAC.DatS,
   FireDAC.DApt.Intf, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
-  FireDAC.Phys.ODBCBase, FireDAC.Comp.UI;
+  FireDAC.Phys.ODBCBase, FireDAC.Comp.UI, Vcl.StdStyleActnCtrls, Vcl.ImgList;
 
 type
   TFMCadProduto = class(TForm)
     ActionManager1: TActionManager;
     acNovo: TAction;
     acAlterar: TAction;
-    acPesquisar: TAction;
     acProximo: TAction;
     acAlterior: TAction;
     acUltimo: TAction;
@@ -45,6 +44,9 @@ type
     DBEdit4: TDBEdit;
     DBMemo1: TDBMemo;
     Label5: TLabel;
+    acExcluir: TAction;
+    ToolButton1: TToolButton;
+    ImageList1: TImageList;
     procedure FormCreate(Sender: TObject);
     procedure acAlterarExecute(Sender: TObject);
     procedure acProximoExecute(Sender: TObject);
@@ -55,8 +57,11 @@ type
     procedure acGravarExecute(Sender: TObject);
     procedure acCancelarExecute(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure acExcluirExecute(Sender: TObject);
+    procedure dsTelaDataChange(Sender: TObject; Field: TField);
   private
     Tabela: TFDTable;
+    procedure HabilitaBotes;
     { Private declarations }
   public
     { Public declarations }
@@ -70,7 +75,7 @@ procedure TFMCadProduto.acAlterarExecute(Sender: TObject);
 begin
      if not (Tabela.State in dsEditModes) then
      begin
-          if ((Tabela.RecordCount > 0) and (Tabela.RecNo <> 0)) then
+          if (Tabela.RecordCount > 0) then
           begin
                Tabela.Edit;
           end;
@@ -79,9 +84,12 @@ end;
 
 procedure TFMCadProduto.acAlteriorExecute(Sender: TObject);
 begin
-     if not (Tabela.State in dsEditModes) then
+     if (Tabela.RecordCount > 0) then
      begin
-          Tabela.Prior;
+          if not (Tabela.State in dsEditModes) then
+          begin
+               Tabela.Prior;
+          end;
      end;
 end;
 
@@ -90,6 +98,17 @@ begin
      if (Tabela.State in dsEditModes) then
      begin
           Tabela.Cancel;
+     end;
+end;
+
+procedure TFMCadProduto.acExcluirExecute(Sender: TObject);
+begin
+     if (Tabela.RecordCount > 0)then
+     begin
+          if (Tabela.State = dsBrowse) then
+          begin
+               Tabela.Delete;
+          end;
      end;
 end;
 
@@ -125,19 +144,18 @@ begin
      end;
 end;
 
-procedure TFMCadProduto.dsTelaStateChange(Sender: TObject);
-var estadoTabela: Boolean;
+procedure TFMCadProduto.dsTelaDataChange(Sender: TObject; Field: TField);
 begin
-     estadoTabela := not (Tabela.State in dsEditModes);
+     //Mudando de registro
+     if not Assigned(Field) then
+     begin
+          HabilitaBotes;
+     end;
+end;
 
-     acNovo.Enabled     := estadoTabela;
-     acAlterar.Enabled  := estadoTabela;
-     acAlterior.Enabled := estadoTabela;
-     acProximo.Enabled  := estadoTabela;
-     acUltimo.Enabled   := estadoTabela;
-     acGravar.Enabled   := (not estadoTabela);
-     acCancelar.Enabled := (not estadoTabela);
-
+procedure TFMCadProduto.dsTelaStateChange(Sender: TObject);
+begin
+     HabilitaBotes;
 end;
 
 procedure TFMCadProduto.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -148,14 +166,34 @@ begin
           ShowMessage('Registro em edição');
           Exit;
      end;
-
+     dmTabelas.FDTableProduto.Close;
      CanClose := True;
 end;
 
 procedure TFMCadProduto.FormCreate(Sender: TObject);
 begin
+     if (not dmTabelas.FDTableProduto.Active) then
+     begin
+          dmTabelas.FDTableProduto.Open;
+     end;
      Tabela         := dmTabelas.FDTableProduto;
      dsTela.DataSet := dmTabelas.FDTableProduto;
+end;
+
+
+procedure TFMCadProduto.HabilitaBotes;
+var estadoTabela: Boolean;
+begin
+     estadoTabela := not (Tabela.State in dsEditModes);
+
+     acNovo.Enabled     := estadoTabela;
+     acAlterar.Enabled  := (estadoTabela and (Tabela.RecordCount > 0));
+     AcExcluir.Enabled  := (estadoTabela and (Tabela.RecordCount > 0));
+     acAlterior.Enabled := estadoTabela;
+     acProximo.Enabled  := estadoTabela;
+     acUltimo.Enabled   := estadoTabela;
+     acGravar.Enabled   := (not estadoTabela);
+     acCancelar.Enabled := (not estadoTabela);
 end;
 
 end.
