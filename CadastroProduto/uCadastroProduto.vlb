@@ -1,0 +1,26 @@
+﻿[edtID]
+Coordinates=155,78,45,58
+
+[edtUnidade]
+Coordinates=10,10,80,58
+
+[Panel1]
+Coordinates=100,10,55,58
+
+[edtNome]
+Coordinates=79,78,66,58
+
+[mmObs]
+Coordinates=165,10,64,58
+
+[edtEstoque]
+Coordinates=239,10,79,58
+
+[]
+Coordinates=10,78,59,58
+
+[Module Settings]
+ModelLayerNames=
+ActiveLayerNames=
+EditingLayerName=
+

@@ -1,0 +1,19 @@
+program prjCadastro;
+
+uses
+  Vcl.Forms,
+  uPrincipal in 'uPrincipal.pas' {Form1},
+  uProduto in 'uProduto.pas',
+  uProdutoDB in 'uProdutoDB.pas',
+  uCadastroProduto in 'uCadastroProduto.pas' {fmCadastroProduto},
+  dm in 'dm.pas' {DataModule1: TDataModule};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TDataModule1, DataModule1);
+  Application.Run;
+end.
