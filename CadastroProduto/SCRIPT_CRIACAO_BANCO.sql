@@ -1,0 +1,29 @@
+CREATE DATABASE CadastroProduto;
+
+USE [CadastroProduto]
+GO
+/****** Object:  Table [dbo].[PRODUTO]    Script Date: 08/27/2016 12:06:08 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[PRODUTO](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[nome] [varchar](200) COLLATE Latin1_General_CI_AS NOT NULL,
+	[estoque] [float] NULL,
+	[unidade] [varchar](10) COLLATE Latin1_General_CI_AS NULL,
+	[observacao] [varchar](200) COLLATE Latin1_General_CI_AS NULL,
+ CONSTRAINT [PK_PRODUTO] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX  = OFF, IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET ANSI_PADDING OFF
+GO
+ALTER TABLE [dbo].[PRODUTO]  WITH CHECK ADD  CONSTRAINT [CK_PRODUTO] CHECK  (([nome]<>''))
+GO
+ALTER TABLE [dbo].[PRODUTO] CHECK CONSTRAINT [CK_PRODUTO]
